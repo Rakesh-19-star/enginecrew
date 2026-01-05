@@ -1,0 +1,116 @@
+/* ================= FLOATING CALL BUTTON ================= */
+
+.floating-call-btn {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 18px;
+    border-radius: 999px;
+
+    background: #0f172a;
+    /* DARK BACKGROUND */
+    color: white;
+
+    font-weight: 800;
+    font-size: 15px;
+    text-decoration: none;
+
+    z-index: 9999;
+
+    box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ================= ICON ================= */
+
+.call-icon {
+    position: relative;
+    z-index: 3;
+
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.6);
+}
+
+/* ================= RING ANIMATION ================= */
+
+.ring {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid rgba(34, 197, 94, 0.6);
+    animation: ringPulse 2s infinite;
+    z-index: 1;
+}
+
+.ring.delay {
+    animation-delay: 1s;
+}
+
+/* ================= TEXT ================= */
+
+.call-text {
+    white-space: nowrap;
+}
+
+/* ================= HOVER ================= */
+
+@media (hover: hover) {
+    .floating-call-btn:hover {
+        transform: translateY(-50%) scale(1.05);
+        box-shadow:
+            0 24px 60px rgba(15, 23, 42, 0.75),
+            0 0 0 2px rgba(34, 197, 94, 0.4);
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 600px) {
+    .floating-call-btn {
+        padding: 12px;
+    }
+
+    .call-text {
+        display: none;
+        /* icon-only on mobile */
+    }
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes ringPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    70% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

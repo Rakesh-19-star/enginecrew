@@ -1,0 +1,59 @@
+.hero {
+    min-height: 90vh;
+    padding: 80px 20px;
+    background: linear-gradient(120deg, #2563eb, #22c55e);
+    color: white;
+    text-align: center;
+    animation: fadeIn 1s ease;
+}
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+}
+
+.hero p {
+    margin: 24px auto;
+    max-width: 600px;
+    font-size: 18px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 14px 34px;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+}
+
+.primary {
+    background: white;
+    color: #2563eb;
+}
+
+.whatsapp {
+    background: #25d366;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

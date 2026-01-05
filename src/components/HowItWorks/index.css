@@ -1,0 +1,50 @@
+.how {
+    padding: 80px 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.timeline {
+    position: relative;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(#2563eb, #22c55e);
+}
+
+.item {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.left {
+    justify-content: flex-end;
+}
+
+.right {
+    justify-content: flex-start;
+}
+
+.card {
+    width: 42%;
+    background: white;
+    padding: 24px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 10px;
+    }
+
+    .card {
+        width: 100%;
+        margin-left: 30px;
+    }
+}

@@ -1,0 +1,52 @@
+/* ===== ABOUT ENGINECREW ===== */
+
+.about-section {
+    padding: 100px 16px;
+    background: radial-gradient(circle at top, #f8fafc, #eef2ff);
+}
+
+.about-box {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 50px 36px;
+    border-radius: 30px;
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.15);
+
+    opacity: 0;
+    transform: scale(0.96) translateY(30px);
+    transition: all 0.7s ease;
+}
+
+.about-box.show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.about-box h2 {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 900;
+    margin-bottom: 20px;
+    color: #0f172a;
+}
+
+.about-box h2 span {
+    color: #2563eb;
+}
+
+.about-box p {
+    font-size: 16px;
+    color: #334155;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.about-highlight {
+    margin-top: 26px;
+    padding: 16px 22px;
+    background: linear-gradient(90deg, #2563eb, #22c55e);
+    color: white;
+    border-radius: 999px;
+    font-weight: 800;
+    display: inline-block;
+}

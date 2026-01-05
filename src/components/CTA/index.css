@@ -1,0 +1,16 @@
+.cta {
+    padding: 80px 20px;
+    background: linear-gradient(90deg, #2563eb, #22c55e);
+    color: white;
+    text-align: center;
+}
+
+.cta-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background: white;
+    color: #2563eb;
+    padding: 14px 32px;
+    border-radius: 999px;
+    font-weight: 700;
+}

@@ -1,0 +1,80 @@
+/* ===== WHY ENGINECREW ===== */
+
+.why-section {
+    padding: 90px 16px;
+    background: linear-gradient(180deg, #0f172a, #020617);
+    color: white;
+    text-align: center;
+}
+
+.why-title {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 900;
+}
+
+.why-title span {
+    color: #22c55e;
+}
+
+.why-subtitle {
+    margin: 14px auto 50px;
+    max-width: 600px;
+    font-size: 16px;
+    color: #cbd5f5;
+}
+
+/* Grid */
+.why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Card */
+.why-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 22px;
+    padding: 36px 24px;
+    backdrop-filter: blur(10px);
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.7s ease;
+}
+
+.why-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.why-icon {
+    font-size: 36px;
+    margin-bottom: 14px;
+}
+
+.why-card h3 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.why-card p {
+    font-size: 14px;
+    color: #cbd5f5;
+    line-height: 1.5;
+}
+
+/* Responsive */
+@media (min-width: 640px) {
+    .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .why-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
