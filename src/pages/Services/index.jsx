@@ -1,9 +1,18 @@
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 import "./index.css"
+
+import batteryRepair from "../../assets/services/batteryRepair.png"
+import brakeRepair from  "../../assets/services/brakeRepair.png"
+import carBreakdown from "../../assets/services/carBreakdown.png"
+import carDiagnostic from "../../assets/services/carDiagnostic.png"
+import generalService from "../../assets/services/generalService.png"
+import minorParts  from "../../assets/services/minorParts.png"
+import { image } from "framer-motion/client"
+
 
 const servicesData = [
   {
-    icon: "🔧",
+    image: generalService,
     title: "General Car Service",
     points: [
       "Engine oil replacement",
@@ -14,7 +23,7 @@ const servicesData = [
     highlight: "Recommended every 10,000 km",
   },
   {
-    icon: "🧠",
+    image: carDiagnostic,
     title: "Engine Diagnostics",
     points: [
       "Check engine light scan",
@@ -24,7 +33,7 @@ const servicesData = [
     highlight: "Accurate diagnosis at your location",
   },
   {
-    icon: "🔋",
+    image: batteryRepair,
     title: "Battery Replacement",
     points: [
       "Battery health check",
@@ -34,7 +43,7 @@ const servicesData = [
     highlight: "On-spot replacement",
   },
   {
-    icon: "🛑",
+    image:brakeRepair ,
     title: "Brake Inspection & Repair",
     points: [
       "Brake pad replacement",
@@ -44,7 +53,7 @@ const servicesData = [
     highlight: "Safety-first service",
   },
   {
-    icon: "🚨",
+    image: carBreakdown,
     title: "Breakdown Assistance",
     points: [
       "Jump start",
@@ -54,7 +63,38 @@ const servicesData = [
     highlight: "Fast response in Hyderabad",
   },
   {
-    icon: "⚡",
+    image: minorParts,
+    title: "Belts & Hoses Replacement",
+    points: [
+      "Drive / AC / alternator belts",
+
+      "Radiator & coolant hoses",
+      "Wear & leak inspection",
+    ],
+    highlight: "Doorstep inspection & replacement",
+  },
+  {
+    image: minorParts,
+    title: "Timing Belt Replacement",
+    points: [
+      "Timing belt inspection",
+      "Tensioner & alignment check",
+      "Engine safety assessment",
+    ],
+    highlight: "Recommended at 60,000–100,000 km",
+  },
+  {
+    image:  minorParts ,
+    title: "Minor Parts Replacement",
+    points: [
+      "Wipers, bulbs & fuses",
+      "Spark plugs & sensors",
+      "Quick diagnostics before replacement",
+    ],
+    highlight: "Fast on-spot service",
+  },
+  {
+    image: minorParts,
     title: "EV Support (Coming Soon)",
     points: [
       "EV diagnostics",
@@ -67,9 +107,14 @@ const servicesData = [
 ]
 
 const Services = () => {
+  // ✅ First card expanded by default
+  const [openCards, setOpenCards] = useState([0])
+
+  // ✅ refs for auto-scroll
+  const cardRefs = useRef([])
+
   useEffect(() => {
     const cards = document.querySelectorAll(".service-card")
-
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -85,48 +130,96 @@ const Services = () => {
     return () => observer.disconnect()
   }, [])
 
+  const toggleCard = index => {
+    setOpenCards(prev => {
+      const isOpening = !prev.includes(index)
+      const updated = isOpening
+        ? [...prev, index]
+        : prev.filter(i => i !== index)
+
+      // ✅ Auto-scroll ONLY when opening
+      if (isOpening) {
+        setTimeout(() => {
+          cardRefs.current[index]?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          })
+
+          // Optional offset (for sticky header)
+          window.scrollBy({
+            top: -80,
+            behavior: "smooth",
+          })
+        }, 150) // wait for expand animation
+      }
+
+      return updated
+    })
+  }
+
   return (
     <section className="services-page">
-      {/* Header */}
       <header className="services-header">
         <h1>Our Services</h1>
         <p>Professional doorstep car service anywhere in Hyderabad.</p>
       </header>
 
-      {/* Cards */}
       <div className="services-grid">
-        {servicesData.map(service => (
-          <article
-            key={service.title}
-            className={`service-card ${
-              service.comingSoon ? "coming-soon" : ""
-            }`}
-          >
-            <div className="service-icon">{service.icon}</div>
+        {servicesData.map((service, index) => {
+          const isOpen = openCards.includes(index)
 
-            <h3 className="service-title">{service.title}</h3>
+          return (
+            <article
+              key={service.title}
+              ref={el => (cardRefs.current[index] = el)}
+              className={`service-card ${
+                isOpen ? "expanded" : ""
+              } ${service.comingSoon ? "coming-soon" : ""}`}
+            >
+              <button
+                className="service-header"
+                onClick={() => toggleCard(index)}
+              >
+                <div className="service-icon"><img src={service.image}alt={service.title} /></div>
 
-            <ul className="service-list">
-              {service.points.map(point => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
+                <div className="service-heading">
+                  <h3>{service.title}</h3>
+                  <span className="service-highlight">
+                    ✔ {service.highlight}
+                  </span>
+                </div>
 
-            <div className="service-highlight">
-              ✔ {service.highlight}
-            </div>
-          </article>
-        ))}
+                <span className="toggle-icon">
+                  {isOpen ? "−" : "+"}
+                </span>
+              </button>
+
+              <div className="service-content">
+                <ul className="service-list">
+                  {service.points.map(point => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+
+                <a
+                  href={`https://wa.me/919059391800?text=Hello EngineCrew, I want to book ${service.title}.`}
+                  className="book-service-btn"
+                >
+                  Book this service →
+                </a>
+              </div>
+            </article>
+          )
+        })}
       </div>
 
-      {/* CTA */}
       <div className="services-cta">
-        <h2>Book your service now</h2>
-        <p>Call or WhatsApp us for instant booking</p>
+        <h2>Need Car Service Today?</h2>
+        <p>Call or WhatsApp us for instant doorstep service</p>
 
         <div className="cta-buttons">
           <a href="tel:9059391800" className="cta-btn call">
-            📞 Call 9059391800
+            📞 Call Now
           </a>
           <a
             href="https://wa.me/919059391800?text=Hello EngineCrew, I want to book a car service."

@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+/* Scroll snapping container */
+#root {
+  scroll-snap-type: y proximity;
+}

@@ -1,17 +1,55 @@
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { NavLink, Link } from "react-router-dom"
 import "./index.css"
 
 const Header = () => {
-  return (
-    <header className="header">
-      <h2 className="logo">EngineCrew</h2>
+  const [scrolled, setScrolled] = useState(false)
+  const [progress, setProgress] = useState(0)
 
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/services">Services</Link>
-        <a href="tel:9059391800" className="call-btn">Call</a>
-      </nav>
-    </header>
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+
+      setScrolled(scrollY > 60)
+
+      const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight
+      setProgress((scrollY / scrollHeight) * 100)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  return (
+    <>
+      {/* Scroll progress */}
+      <div
+        className="scroll-progress"
+        style={{ width: `${progress}%` }}
+      />
+
+      <header className={`header ${scrolled ? "shrink" : ""}`}>
+        {/* Logo */}
+        <Link to="/" className="logo">
+          Engine<span>Crew</span>
+        </Link>
+
+        {/* Nav */}
+        <nav className="nav">
+          <NavLink to="/" className="nav-link">
+            Home
+          </NavLink>
+          <NavLink to="/services" className="nav-link">
+            Services
+          </NavLink>
+          <a href="tel:9059391800" className="call-btn">
+            📞 Call
+          </a>
+        </nav>
+      </header>
+    </>
   )
 }
 

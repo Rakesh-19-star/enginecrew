@@ -4,7 +4,8 @@ import HowItWorks from "../../components/HowItWorks"
 import CTA from "../../components/CTA"
 import WhyEngineCrew from "../../components/WhyEngineCrew"
 import AboutEngineCrew from "../../components/AboutEngineCrew"
-// import "./index.css"
+ import "./index.css"
+import Footer from "../../components/Footer"
 
 const Home = () => {
   return (
@@ -15,6 +16,8 @@ const Home = () => {
       <HowItWorks />
       <AboutEngineCrew/>
       <CTA />
+      <Footer/>
+       
     </>
   )
 }

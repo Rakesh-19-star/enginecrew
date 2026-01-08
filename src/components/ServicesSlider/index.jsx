@@ -1,36 +1,61 @@
-import { useEffect } from "react"
-import Slider from "react-slick"
 import { useNavigate } from "react-router-dom"
+import Slider from "react-slick"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import "./index.css"
 
+import batteryRepair from "../../assets/services/batteryRepair.png"
+import brakeRepair from  "../../assets/services/brakeRepair.png"
+import carBreakdown from "../../assets/services/carBreakdown.png"
+import carDiagnostic from "../../assets/services/carDiagnostic.png"
+import generalService from "../../assets/services/generalService.png"
 const services = [
-  { name: "General Car Service", icon: "🔧" },
-  { name: "Engine Diagnostics", icon: "🧠" },
-  { name: "Battery Replacement", icon: "🔋" },
-  { name: "Brake Repair", icon: "🛑" },
-  { name: "Breakdown Assistance", icon: "🚨" },
+  {
+    name: "General Car Service",
+    image: generalService,
+    tag: "Recommended",
+    desc: "Routine maintenance to keep your car running smoothly.",
+  },
+  {
+    name: "Engine Diagnostics",
+    image: carDiagnostic,
+    tag: "Popular",
+    desc: "Quick diagnosis for engine & performance issues.",
+  },
+  {
+    name: "Battery Replacement",
+    image: batteryRepair,
+    tag: "Popular",
+    desc: "Instant battery check & on-spot replacement.",
+  },
+  {
+    name: "Brake Repair",
+    image:brakeRepair,
+    tag: "Safety",
+    desc: "Brake inspection & repair for safer driving.",
+  },
+  {
+    name: "Breakdown Assistance",
+    image:carBreakdown,
+    tag: "Emergency",
+    desc: "Immediate roadside help when your car breaks down.",
+  },
 ]
 
 const settings = {
-  dots: true,
-  arrows: false,
+  arrows: true,
+  dots: false,
   infinite: true,
   speed: 600,
   slidesToShow: 2,
   slidesToScroll: 1,
-  centerMode: true,          // ⭐ key
-  centerPadding: "40px",     // ⭐ shows next card peek
+  centerMode: true,
+  centerPadding: "40px",
+  autoplay: true,
+  autoplaySpeed: 3500,
+  pauseOnHover: true,
   responsive: [
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 2,
-        centerMode: false,
-      },
-    },
     {
       breakpoint: 1024,
       settings: {
@@ -38,30 +63,18 @@ const settings = {
         centerMode: false,
       },
     },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        centerMode: false,
+      },
+    },
   ],
 }
 
-
 const ServicesSlider = () => {
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const cards = document.querySelectorAll(".service-card")
-
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show")
-          }
-        })
-      },
-      { threshold: 0.25 }
-    )
-
-    cards.forEach(card => observer.observe(card))
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <section className="services-slider">
@@ -71,12 +84,28 @@ const ServicesSlider = () => {
         {services.map(service => (
           <div key={service.name} className="slide">
             <div className="service-card">
-              <div className="service-icon">{service.icon}</div>
+              {/* Intent Tag */}
+              <span
+                className={`intent-tag ${service.tag.toLowerCase()}`}
+              >
+                {service.tag}
+              </span>
+
+             <div className="service-icon">
+  <img src={service.image} alt={service.name} />
+</div>
+
               <h3 className="service-name">{service.name}</h3>
+
+              {/* Micro description (active slide only via CSS) */}
+              <p className="service-desc">{service.desc}</p>
             </div>
           </div>
         ))}
       </Slider>
+
+      {/* Swipe hint (mobile only) */}
+      <p className="swipe-hint">← Swipe to explore services →</p>
 
       <button
         className="see-all-btn"

@@ -2,7 +2,7 @@
 
 .about-section {
     padding: 100px 16px;
-    background: radial-gradient(circle at top, #f8fafc, #eef2ff);
+    background: linear-gradient(180deg, #0f172a, #020617);
 }
 
 .about-box {

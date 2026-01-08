@@ -1,25 +1,65 @@
+/* ================= SECTION ================= */
+
 .how {
-    padding: 80px 20px;
+    padding: 120px 20px;
+background: linear-gradient(180deg, #0f172a, #020617);
+}
+
+.how-title {
+    text-align: center;
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 900;
+    margin-bottom: 100px;
+    color:white;
+}
+
+/* ================= TIMELINE ================= */
+
+.timeline {
+    position: relative;
     max-width: 900px;
     margin: auto;
 }
 
-.timeline {
-    position: relative;
-}
-
-.timeline::before {
-    content: "";
+/* Base line */
+.timeline-line {
     position: absolute;
     left: 50%;
+    top: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(#2563eb, #22c55e);
+    background: rgba(15, 23, 42, 0.15);
+    transform: translateX(-50%);
+    overflow: hidden;
 }
 
-.item {
+/* Animated fill */
+.timeline-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--fill-height, 0%);
+    background: linear-gradient(180deg, #2563eb, #22c55e);
+    transition: height 0.15s ease;
+}
+
+/* ================= ITEMS ================= */
+
+.timeline-item {
     display: flex;
-    margin-bottom: 50px;
+    margin-bottom: 90px;
+    text-decoration: none;
+
+    opacity: 0.35;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+}
+
+.timeline-item.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .left {
@@ -30,21 +70,126 @@
     justify-content: flex-start;
 }
 
-.card {
-    width: 42%;
-    background: white;
-    padding: 24px;
-    border-radius: 18px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+/* Keyboard focus */
+.timeline-item:focus-visible .timeline-card {
+    outline: 3px solid #2563eb;
+    outline-offset: 4px;
 }
 
+/* ================= CARD ================= */
+
+.timeline-card {
+    position: relative;
+    width: 42%;
+    padding: 40px 32px;
+
+    background: linear-gradient(160deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(241, 245, 249, 0.96));
+    backdrop-filter: blur(10px);
+
+    border-radius: 26px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15);
+
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.timeline-item.active .timeline-card {
+    box-shadow:
+        0 30px 70px rgba(15, 23, 42, 0.3),
+        0 0 0 1px rgba(37, 99, 235, 0.15);
+}
+
+/* Hover (desktop only) */
+@media (hover: hover) {
+    .timeline-card:hover {
+        transform: translateY(-8px);
+    }
+}
+
+/* ================= BADGE ================= */
+
+.step-badge {
+    position: absolute;
+    top: -22px;
+    left: 24px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: linear-gradient(135deg, #2563eb, #22c55e);
+    color: white;
+
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.45);
+}
+
+.badge-icon {
+    font-size: 14px;
+}
+
+/* ================= TEXT ================= */
+
+.timeline-card h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.timeline-card p {
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.6;
+}
+
+/* ================= BACK TO TOP ================= */
+
+.back-to-top {
+    display: inline-block;
+    margin: 40px auto 0;
+    padding: 10px 20px;
+
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(90deg, #2563eb, #22c55e);
+    border-radius: 999px;
+    text-decoration: none;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (hover: hover) {
+    .back-to-top:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 26px rgba(37, 99, 235, 0.35);
+    }
+}
+
+/* ================= MOBILE ================= */
+
 @media (max-width: 768px) {
-    .timeline::before {
+    .timeline-line {
         left: 10px;
+        transform: none;
     }
 
-    .card {
+    .timeline-item {
+        justify-content: flex-start;
+    }
+
+    .timeline-card {
         width: 100%;
         margin-left: 30px;
+    }
+
+    .step-badge {
+        left: 18px;
     }
 }
