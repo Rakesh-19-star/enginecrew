@@ -1,522 +1,214 @@
+/* ================= HERO ROOT ================= */
+
 .hero {
-    min-height: 90vh;
-    padding: 90px 20px;
-    position: relative;
-    overflow: hidden;
-
-    background-image:
-        linear-gradient(120deg,
-            rgba(2, 6, 23, 0.8),
-            rgba(15, 23, 42, 0.6)),
-        url("https://res.cloudinary.com/dvj4c6ren/image/upload/v1767446010/pocketmechanicbg.webp");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    width: 100%;
+    background: #020617;
+    /* solid background after image */
     color: white;
 }
 
-/* Slow background movement (premium feel) */
-.hero::before {
-    content: "";
+/* ================= IMAGE AREA ================= */
+
+.hero-visual {
+    position: relative;
+    background-image: url("https://res.cloudinary.com/dvj4c6ren/image/upload/v1767446010/pocketmechanicbg.webp");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: contain;
+    /* 🔥 FULL IMAGE ON MOBILE */
+    background-color: #020617;
+
+    padding: 72px 16px 36px;
+    overflow: hidden;
+}
+
+/* Overlay for readability */
+.hero-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top,
-            rgba(34, 197, 94, 0.15),
-            transparent 60%);
-    animation: bgFloat 12s linear infinite;
+    background: linear-gradient(180deg,
+            rgba(2, 6, 23, 0.85),
+            rgba(15, 23, 42, 0.7));
+    z-index: 0;
 }
 
-/* Content wrapper */
+/* ================= CONTENT ================= */
+
 .hero-content {
     position: relative;
-    max-width: 900px;
-    text-align: center;
     z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-/* Title animation */
+/* ================= TEXT ================= */
+
 .hero-title {
-    font-size: clamp(34px, 6vw, 58px);
+    font-size: clamp(26px, 6vw, 52px);
     font-weight: 900;
     line-height: 1.15;
-    margin-bottom: 20px;
-
-    opacity: 0;
-    transform: translateY(30px);
-    animation: reveal 0.9s ease forwards;
+    margin-bottom: 14px;
 }
 
 .hero-title span {
     color: #22c55e;
 }
 
-/* Text animation */
 .hero-text {
-    font-size: 18px;
-    max-width: 650px;
-    margin: 0 auto 36px;
+    font-size: 15px;
     line-height: 1.6;
     color: #e5e7eb;
-
-    opacity: 0;
-    transform: translateY(30px);
-    animation: reveal 0.9s ease forwards;
-    animation-delay: 0.15s;
+    margin-bottom: 26px;
 }
 
-/* Buttons */
+/* ================= BUTTONS ================= */
+
 .hero-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 14px;
     flex-wrap: wrap;
-
-    opacity: 0;
-    transform: translateY(30px);
-    animation: reveal 0.9s ease forwards;
-    animation-delay: 0.3s;
+    margin-bottom: 22px;
+    /* 🔥 compact */
 }
 
 .btn {
-    position: relative;
-    padding: 14px 36px;
+    padding: 13px 30px;
     border-radius: 999px;
     font-weight: 800;
-    font-size: 15px;
+    font-size: 14px;
     text-decoration: none;
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Call button */
 .primary {
     background: white;
     color: #2563eb;
 }
 
-.primary::after {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 999px;
-    border: 2px solid rgba(255, 255, 255, 0.35);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* WhatsApp */
 .whatsapp {
     background: linear-gradient(90deg, #25d366, #16a34a);
     color: white;
 }
 
-/* Hover effects (desktop only) */
 @media (hover: hover) {
     .btn:hover {
-        transform: translateY(-4px) scale(1.02);
-        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
-    }
-
-    .primary:hover::after {
-        opacity: 1;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
     }
 }
 
-/* Scroll indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.scroll-indicator span {
-    width: 22px;
-    height: 36px;
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    border-radius: 20px;
-    display: block;
-    position: relative;
-}
-
-.scroll-indicator span::before {
-    content: "";
-    width: 4px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    top: 6px;
-    transform: translateX(-50%);
-    animation: scrollDot 1.8s infinite;
-}
-
-/* Animations */
-@keyframes reveal {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes bgFloat {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-20px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-}
-
-@keyframes scrollDot {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, 0);
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translate(-50%, 14px);
-    }
-}
-
-/* Mobile tweaks */
-@media (max-width: 600px) {
-    .hero {
-        padding: 80px 16px;
-    }
-
-    .hero-text {
-        font-size: 16px;
-    }
-}
-/* ================= CAR ANIMATION ================= */
-
-.car-road {
-  position: absolute;
-  bottom: 24px;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.car {
-  position: absolute;
-  left: -60px;
-  font-size: 32px;
-  animation: drive 8s linear infinite;
-}
-
-/* Car driving animation */
-@keyframes drive {
-  0% {
-    transform: translateX(-80px);
-  }
-  100% {
-    transform: translateX(calc(100vw + 80px));
-  }
-}
-
-/* Mobile tweak */
-@media (max-width: 600px) {
-  .car {
-    font-size: 26px;
-    animation-duration: 6s;
-  }
-}
-
-/* ================= SERVICE LINE ANIMATION ================= */
-
-.service-line {
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.15);
-    overflow: hidden;
-}
-
-/* Moving dots = service flow */
-.service-line .dot {
-    position: absolute;
-    top: -4px;
-    width: 10px;
-    height: 10px;
-    background: #22c55e;
-    border-radius: 50%;
-    animation: flow 4s linear infinite;
-}
-
-.service-line .delay {
-    animation-delay: 1.3s;
-}
-
-.service-line .delay-2 {
-    animation-delay: 2.6s;
-}
-
-/* Flow animation */
-@keyframes flow {
-    0% {
-        left: -10px;
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    90% {
-        opacity: 1;
-    }
-
-    100% {
-        left: 100%;
-        opacity: 0;
-    }
-}
-
-/* Mobile adjustment */
-@media (max-width: 600px) {
-    .service-line {
-        width: 85%;
-    }
-}
-/* ================= SERVICE LINE WITH LABELS ================= */
-
-.service-line-wrapper {
-    position: absolute;
-    bottom: 26px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    text-align: center;
-    z-index: 1;
-}
-
-/* Line */
-.service-line {
-    position: relative;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.18);
-    overflow: hidden;
-}
-
-/* Moving dots */
-.service-line .dot {
-    position: absolute;
-    top: -4px;
-    width: 10px;
-    height: 10px;
-    background: #22c55e;
-    border-radius: 50%;
-    animation: flow 4s linear infinite;
-}
-
-.service-line .delay {
-    animation-delay: 1.3s;
-}
-
-.service-line .delay-2 {
-    animation-delay: 2.6s;
-}
-
-/* Labels */
-.service-labels {
-    margin-top: 12px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: rgba(229, 231, 235, 0.75);
-
-    opacity: 0;
-    transform: translateY(6px);
-    animation: labelsReveal 0.8s ease forwards;
-    animation-delay: 0.6s;
-}
-
-.service-labels span {
-    flex: 1;
-    text-align: center;
-}
-
-/* Animations */
-@keyframes flow {
-    0% {
-        left: -10px;
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    90% {
-        opacity: 1;
-    }
-
-    100% {
-        left: 100%;
-        opacity: 0;
-    }
-}
-
-@keyframes labelsReveal {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-    .service-line-wrapper {
-        width: 85%;
-    }
-
-    .service-labels {
-        font-size: 11px;
-    }
-}
-/* ================= SERVICE FLOW (FIXED) ================= */
+/* ================= SERVICE FLOW ================= */
 
 .service-flow {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70%;
-  z-index: 1;
-
-  /* 🔥 spacing from CTA buttons */
-  margin-top: 40px;
+    margin-top: 6px;
+    /* 🔥 NO BIG GAP */
 }
 
 /* Line */
 .service-line {
-  position: relative;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.18);
-  margin-bottom: 18px;
-  overflow: hidden;
+    position: relative;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.25);
+    margin-bottom: 8px;
+    overflow: hidden;
 }
 
 /* Dots */
 .dot {
-  position: absolute;
-  top: -4px;
-  width: 10px;
-  height: 10px;
-  background: #22c55e;
-  border-radius: 50%;
-  animation: moveDot 4.5s linear infinite;
+    position: absolute;
+    top: -4px;
+    width: 9px;
+    height: 9px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: moveDot 4.5s linear infinite;
 }
 
-.dot-1 {
-  animation-delay: 0s;
-}
-.dot-2 {
-  animation-delay: 1.5s;
-}
-.dot-3 {
-  animation-delay: 3s;
+.d2 {
+    animation-delay: 1.5s;
 }
 
-/* Steps */
+.d3 {
+    animation-delay: 3s;
+}
+
+/* Labels */
 .service-steps {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
+    display: flex;
+    justify-content: space-between;
 }
 
-/* Base label */
 .step {
-  flex: 1;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(229, 231, 235, 0.45);
+    flex: 1;
+    text-align: center;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(229, 231, 235, 0.45);
 }
 
-/* 🔥 CORRECT highlight animations */
 .inspect {
-  animation: stepHighlight 4.5s infinite;
+    animation: stepGlow 4.5s infinite;
 }
 
 .repair {
-  animation: stepHighlight 4.5s infinite;
-  animation-delay: 1.5s;
+    animation: stepGlow 4.5s infinite 1.5s;
 }
 
 .deliver {
-  animation: stepHighlight 4.5s infinite;
-  animation-delay: 3s;
+    animation: stepGlow 4.5s infinite 3s;
 }
 
-/* Animations */
+/* ================= ANIMATIONS ================= */
+
 @keyframes moveDot {
-  0% {
-    left: -10px;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
+    0% {
+        left: -10px;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
 }
 
-/* Label highlight animation */
-@keyframes stepHighlight {
-  0%,
-  100% {
-    color: rgba(229, 231, 235, 0.45);
-    transform: scale(1);
-  }
-  20% {
-    color: #22c55e;
-    transform: scale(1.1);
-  }
+@keyframes stepGlow {
+
+    0%,
+    100% {
+        color: rgba(229, 231, 235, 0.45);
+    }
+
+    20% {
+        color: #22c55e;
+    }
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-  .service-flow {
-    width: 85%;
-    margin-top: 48px;
-  }
+/* ================= DESKTOP ================= */
 
-  .step {
-    font-size: 11px;
-  }
+@media (min-width: 768px) {
+    .hero-visual {
+        background-size: cover;
+        background-position: center;
+        padding: 120px 20px 70px;
+    }
+
+    .hero-text {
+        font-size: 18px;
+    }
+
+    .service-flow {
+        margin-top: 28px;
+    }
 }
