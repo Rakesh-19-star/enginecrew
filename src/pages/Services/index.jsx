@@ -65,7 +65,7 @@ const servicesData = [
     highlight: "Fast response in Hyderabad",
   },
   {
-    image: carBetsAndHoses,
+    image: carBeltsAndHoses,
     title: "Belts & Hoses Replacement",
     points: [
       "Drive / AC / alternator belts",
