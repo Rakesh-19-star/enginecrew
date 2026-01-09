@@ -6,6 +6,8 @@ import WhyEngineCrew from "../../components/WhyEngineCrew"
 import AboutEngineCrew from "../../components/AboutEngineCrew"
  import "./index.css"
 import Footer from "../../components/Footer"
+import FAQ from "../../components/FAQ"
+import Testimonials from "../../components/Testimonials"
 
 const Home = () => {
   return (
@@ -13,8 +15,10 @@ const Home = () => {
       <Hero />
       <ServicesSlider />
       <WhyEngineCrew/>
+      <Testimonials/>
       <HowItWorks />
       <AboutEngineCrew/>
+      <FAQ/>
       <CTA />
       <Footer/>
        
