@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react"
 import "./index.css"
 
-import batteryRepair from "../../assets/services/batteryRepair.png"
-import brakeRepair from  "../../assets/services/brakeRepair.png"
-import carBreakdown from "../../assets/services/carBreakdown.png"
-import carDiagnostic from "../../assets/services/carDiagnostic.png"
+/* Local images (Vite / React safe) */
 import generalService from "../../assets/services/generalService.png"
-import minorParts  from "../../assets/services/minorParts.png"
-import { image } from "framer-motion/client"
-
+import carDiagnostic from "../../assets/services/carDiagnostic.png"
+import batteryRepair from "../../assets/services/batteryRepair.png"
+import brakeRepair from "../../assets/services/brakeRepair.png"
+import carBreakdown from "../../assets/services/carBreakdown.png"
+import carBetsAndHoses from "../../assets/services/carBetsAndHoses.png"
+import carTimingBelts from "../../assets/services/carTimingBelts.png"
+import minorParts from "../../assets/services/minorParts.png"
+import carEv from "../../assets/services/carEv.png"
 
 const servicesData = [
   {
@@ -43,7 +45,7 @@ const servicesData = [
     highlight: "On-spot replacement",
   },
   {
-    image:brakeRepair ,
+    image: brakeRepair,
     title: "Brake Inspection & Repair",
     points: [
       "Brake pad replacement",
@@ -63,18 +65,17 @@ const servicesData = [
     highlight: "Fast response in Hyderabad",
   },
   {
-    image: minorParts,
+    image: carBetsAndHoses,
     title: "Belts & Hoses Replacement",
     points: [
       "Drive / AC / alternator belts",
-
       "Radiator & coolant hoses",
       "Wear & leak inspection",
     ],
     highlight: "Doorstep inspection & replacement",
   },
   {
-    image: minorParts,
+    image: carTimingBelts,
     title: "Timing Belt Replacement",
     points: [
       "Timing belt inspection",
@@ -84,7 +85,7 @@ const servicesData = [
     highlight: "Recommended at 60,000–100,000 km",
   },
   {
-    image:  minorParts ,
+    image: minorParts,
     title: "Minor Parts Replacement",
     points: [
       "Wipers, bulbs & fuses",
@@ -94,7 +95,7 @@ const servicesData = [
     highlight: "Fast on-spot service",
   },
   {
-    image: minorParts,
+    image: carEv,
     title: "EV Support (Coming Soon)",
     points: [
       "EV diagnostics",
@@ -107,14 +108,10 @@ const servicesData = [
 ]
 
 const Services = () => {
-  // ✅ First card expanded by default
   const [openCards, setOpenCards] = useState([0])
-
-  // ✅ refs for auto-scroll
   const cardRefs = useRef([])
 
   useEffect(() => {
-    const cards = document.querySelectorAll(".service-card")
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -126,42 +123,23 @@ const Services = () => {
       { threshold: 0.15 }
     )
 
-    cards.forEach(card => observer.observe(card))
+    cardRefs.current.forEach(card => card && observer.observe(card))
     return () => observer.disconnect()
   }, [])
 
   const toggleCard = index => {
-    setOpenCards(prev => {
-      const isOpening = !prev.includes(index)
-      const updated = isOpening
-        ? [...prev, index]
-        : prev.filter(i => i !== index)
-
-      // ✅ Auto-scroll ONLY when opening
-      if (isOpening) {
-        setTimeout(() => {
-          cardRefs.current[index]?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          })
-
-          // Optional offset (for sticky header)
-          window.scrollBy({
-            top: -80,
-            behavior: "smooth",
-          })
-        }, 150) // wait for expand animation
-      }
-
-      return updated
-    })
+    setOpenCards(prev =>
+      prev.includes(index)
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    )
   }
 
   return (
     <section className="services-page">
       <header className="services-header">
         <h1>Our Services</h1>
-        <p>Professional doorstep car service anywhere in Hyderabad.</p>
+        <p>Premium doorstep car service anywhere in Hyderabad</p>
       </header>
 
       <div className="services-grid">
@@ -172,15 +150,17 @@ const Services = () => {
             <article
               key={service.title}
               ref={el => (cardRefs.current[index] = el)}
-              className={`service-card ${
-                isOpen ? "expanded" : ""
-              } ${service.comingSoon ? "coming-soon" : ""}`}
+              className={`service-card ${isOpen ? "expanded" : ""}`}
             >
               <button
                 className="service-header"
                 onClick={() => toggleCard(index)}
               >
-                <div className="service-icon"><img src={service.image}alt={service.title} /></div>
+                <div className="service-icon">
+                  <div className="icon-glass">
+                    <img src={service.image} alt={service.title} />
+                  </div>
+                </div>
 
                 <div className="service-heading">
                   <h3>{service.title}</h3>
@@ -189,9 +169,7 @@ const Services = () => {
                   </span>
                 </div>
 
-                <span className="toggle-icon">
-                  {isOpen ? "−" : "+"}
-                </span>
+                <span className="toggle-icon">{isOpen ? "−" : "+"}</span>
               </button>
 
               <div className="service-content">
@@ -211,23 +189,6 @@ const Services = () => {
             </article>
           )
         })}
-      </div>
-
-      <div className="services-cta">
-        <h2>Need Car Service Today?</h2>
-        <p>Call or WhatsApp us for instant doorstep service</p>
-
-        <div className="cta-buttons">
-          <a href="tel:9059391800" className="cta-btn call">
-            📞 Call Now
-          </a>
-          <a
-            href="https://wa.me/919059391800?text=Hello EngineCrew, I want to book a car service."
-            className="cta-btn whatsapp"
-          >
-            💬 WhatsApp Booking
-          </a>
-        </div>
       </div>
     </section>
   )
