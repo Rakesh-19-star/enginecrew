@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import Header from "./components/Header"
 import Home from "./pages/Home"
 import Services from "./pages/Services"
+import FloatingCallButton from "./components/FloatingCallButton"
 
 const App = () => {
   const location = useLocation()
@@ -43,6 +44,8 @@ const App = () => {
           />
         </Routes>
       </AnimatePresence>
+      <FloatingCallButton/>
+    
     </>
   )
 }

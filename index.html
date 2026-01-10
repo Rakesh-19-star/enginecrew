@@ -1,32 +1,51 @@
 <!doctype html>
 <html lang="en">
 
-<head> 
-  <!-- adding the title an icon for tab -->
-  <!-- Basic -->
+<head>
+  <!-- ================= BASIC ================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <!-- ✅ Website Title -->
-  <title>EngineCrew | Mobile Car Service at Your Doorstep</title>
+  <!-- ================= TITLE ================= -->
+  <title>
+    EngineCrew | Mobile Car Service in Hyderabad | Doorstep Car Repair
+  </title>
 
-  <!-- ✅ Favicon (PNG logo you created) -->
-  <!-- Place your logo inside /public folder -->
-  <link rel="icon" type="image/png" href="/engineCrewLogo.png" />
-
-  <!-- Optional: Apple Touch Icon (iOS) -->
+  <!-- ================= FAVICON & LOGO ================= -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/engineCrewLogo.png" />
   <link rel="apple-touch-icon" href="/engineCrewLogo.png" />
 
-  <!-- Optional: SEO basics -->
+  <!-- ================= SEO META ================= -->
   <meta name="description"
-    content="car service Hyderabad, mobile car service, car repair near me, jump start Hyderabad, car mechanic Malkajgiri, doorstep car service" />
-  <meta name="keywords" content="EngineCrew, Mobile Car Service, Car Repair Hyderabad, Doorstep Car Service" />
-  <meta name="theme-color" content="#0f172a" />
+    content="EngineCrew provides mobile car service in Hyderabad. Doorstep car repair, car mechanic near you, battery replacement, jump start service, breakdown assistance in Malkajgiri & Secunderabad." />
+
   <meta name="keywords"
-    content="car service Hyderabad, mobile car service, car repair near me, jump start Hyderabad, car mechanic Malkajgiri, doorstep car service" />
-  
+    content="car repair Hyderabad, car mechanic near me, mobile car service Hyderabad, car service in Malkajgiri, jump start service Hyderabad, doorstep car service, EngineCrew" />
+
   <meta name="author" content="EngineCrew" />
   <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- ================= CANONICAL ================= -->
+  <link rel="canonical" href="https://enginecrew.in/" />
+
+  <!-- ================= OPEN GRAPH ================= -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="EngineCrew | Mobile Car Service in Hyderabad" />
+  <meta property="og:description"
+    content="Professional doorstep car service in Hyderabad. Battery replacement, jump start, car repair & mobile mechanic near you." />
+  <meta property="og:url" content="https://enginecrew.in/" />
+  <meta property="og:image" content="https://enginecrew.in/engineCrewLogo.png" />
+
+  <!-- ================= TWITTER ================= -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="EngineCrew | Mobile Car Service Hyderabad" />
+  <meta name="twitter:description"
+    content="Doorstep car repairs & mobile mechanic services in Hyderabad. Call EngineCrew today." />
+  <meta name="twitter:image" content="https://enginecrew.in/engineCrewLogo.png" />
+
+  <!-- ================= LOCAL BUSINESS SCHEMA ================= -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -34,11 +53,11 @@
     "@id": "https://enginecrew.in/#localbusiness",
     "name": "EngineCrew Mobile Car Service",
     "url": "https://enginecrew.in",
-    "logo": "https://enginecrew.in/enginecrew-logo.png",
-    "image": "https://enginecrew.in/enginecrew-logo.png",
+    "logo": "https://enginecrew.in/engineCrewLogo.png",
+    "image": "https://enginecrew.in/engineCrewLogo.png",
     "telephone": "+91-9059391800",
-    
-    "description": "EngineCrew provides professional mobile car service in Hyderabad including doorstep car repairs, battery replacement, jump start service, engine diagnostics, brake repair, breakdown assistance and car mechanic services at your home or office.",
+    "priceRange": "₹₹",
+    "description": "EngineCrew offers professional mobile car service in Hyderabad including doorstep car repair, jump start service, battery replacement, engine diagnostics, brake repair and breakdown assistance.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Hyderabad",
@@ -50,25 +69,36 @@
       "latitude": 17.385044,
       "longitude": 78.486671
     },
-    "openingHoursSpecification": [
+    "areaServed": [
       {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday"
-        ],
-        "opens": "06:00",
-        "closes": "23:00"
+        "@type": "AdministrativeArea",
+        "name": "Hyderabad"
+      },
+      {
+        "@type": "Place",
+        "name": "Malkajgiri"
       }
     ],
-    "areaServed": {
-      "@type": "AdministrativeArea",
-      "name": "Hyderabad"
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "06:00",
+      "closes": "23:00"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-9059391800",
+      "contactType": "customer service",
+      "areaServed": "IN",
+      "availableLanguage": ["English", "Telugu"]
     },
     "sameAs": [
       "https://goo.gl/maps/rT1tQDqV9RHE87zV9"
@@ -76,13 +106,38 @@
   }
   </script>
 
+  <!-- ================= SITE NAVIGATION (SITELINK SIGNAL) ================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://enginecrew.in",
+    "name": "EngineCrew",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://enginecrew.in/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
 </head>
 
 <body>
+
+  <!-- ================= ACCESSIBLE NAV (FOR GOOGLE) ================= -->
+  <nav style="display:none">
+    <a href="/">Home</a>
+    <a href="/services">Car Services in Hyderabad</a>
+    <a href="/contact">Contact</a>
+  </nav>
+
+  <!-- ================= REACT ROOT ================= -->
   <div id="root"></div>
 
-  <!-- React Entry -->
+  <!-- ================= REACT ENTRY ================= -->
   <script type="module" src="/src/main.jsx"></script>
+
 </body>
 
 </html>
