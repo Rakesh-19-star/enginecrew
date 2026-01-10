@@ -1,54 +1,52 @@
-import { useEffect, useState } from "react"
-import { NavLink, Link } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { NavLink, Link, useLocation } from "react-router-dom"
 import "./index.css"
 
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false)
-  const [progress, setProgress] = useState(0)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-
-      setScrolled(scrollY > 60)
-
-      const scrollHeight =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight
-      setProgress((scrollY / scrollHeight) * 100)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    setMenuOpen(false)
+  }, [location.pathname])
 
   return (
     <>
-      {/* Scroll progress */}
-      <div
-        className="scroll-progress"
-        style={{ width: `${progress}%` }}
-      />
-
-      <header className={`header ${scrolled ? "shrink" : ""}`}>
-        {/* Logo */}
+      <header className="header">
         <Link to="/" className="logo">
           Engine<span>Crew</span>
         </Link>
 
-        {/* Nav */}
-        <nav className="nav">
-          <NavLink to="/" className="nav-link">
-            Home
-          </NavLink>
-          <NavLink to="/services" className="nav-link">
-            Services
-          </NavLink>
-          <a href="tel:9059391800" className="call-btn">
-            📞 Call
-          </a>
+        {/* Desktop */}
+        <nav className="desktop-nav">
+          <NavLink to="/" className="nav-link">Home</NavLink>
+          <NavLink to="/services" className="nav-link">Services</NavLink>
+          <NavLink to="/blog/car-repair-hyderabad" className="nav-link">Blog</NavLink>
+          <a href="tel:9059391800" className="call-btn">📞 Call</a>
         </nav>
+
+        {/* Mobile */}
+        <div className="mobile-actions">
+          <a href="tel:9059391800" className="mobile-call">📞</a>
+
+          <button
+            className={`menu-btn ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
       </header>
+
+      {/* Mobile Dropdown */}
+      <div className={`mobile-dropdown ${menuOpen ? "show" : ""}`}>
+        <NavLink to="/" className="dropdown-link">Home</NavLink>
+        <NavLink to="/services" className="dropdown-link">Services</NavLink>
+        <NavLink to="/blog/car-repair-hyderabad" className="dropdown-link">Blog</NavLink>
+        <a href="tel:9059391800" className="dropdown-call">📞 Call Now</a>
+      </div>
     </>
   )
 }

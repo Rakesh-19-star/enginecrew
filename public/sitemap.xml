@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://enginecrew.in/</loc>
     <priority>1.0</priority>
@@ -11,12 +12,28 @@
   </url>
 
   <url>
-    <loc>https://enginecrew.in/about</loc>
-    <priority>0.8</priority>
+    <loc>https://enginecrew.in/blog/car-repair-hyderabad</loc>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://enginecrew.in/contact</loc>
-    <priority>0.8</priority>
+    <loc>https://enginecrew.in/blog/car-mechanic-hyderabad</loc>
+    <priority>0.9</priority>
   </url>
+
+  <url>
+    <loc>https://enginecrew.in/blog/car-repair-malkajgiri</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://enginecrew.in/blog/mobile-car-service-hyderabad</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://enginecrew.in/blog/jump-start-service-hyderabad</loc>
+    <priority>0.9</priority>
+  </url>
+
 </urlset>

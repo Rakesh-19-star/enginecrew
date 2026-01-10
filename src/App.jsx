@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import Header from "./components/Header"
 import Home from "./pages/Home"
 import Services from "./pages/Services"
+import Blog from "./components/Blog"
 import FloatingCallButton from "./components/FloatingCallButton"
 
 const App = () => {
@@ -15,19 +16,7 @@ const App = () => {
 
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route
-            path="/"
-            element={
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.35 }}
-              >
-                <Home />
-              </motion.div>
-            }
-          />
+          <Route path="/" element={<Home />} />
 
           <Route
             path="/services"
@@ -42,10 +31,28 @@ const App = () => {
               </motion.div>
             }
           />
+
+          {/* Blog Landing Page (optional later) */}
+          <Route path="/blog" element={<Blog />} />
+
+          {/* SEO Blog Pages */}
+          <Route
+            path="/blog/:slug"
+            element={
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.35 }}
+              >
+                <Blog />
+              </motion.div>
+            }
+          />
         </Routes>
       </AnimatePresence>
-      <FloatingCallButton/>
-    
+
+      <FloatingCallButton />
     </>
   )
 }
