@@ -162,96 +162,101 @@ const Batteries = () => {
 )}
 
       {/* ========== BATTERY RESULTS ========== */}
-      {selectedFuel && (
-        <>
-          <div className="results-header">
-            <h3>Available Batteries for {selectedBrand} {selectedModel} ({selectedFuel})</h3>
-            <p>{batteries.length} {batteries.length === 1 ? 'option' : 'options'} found</p>
-          </div>
+{selectedFuel && (
+  <>
+    <div className="results-header">
+      <h3>Available Batteries for {selectedBrand} {selectedModel} ({selectedFuel})</h3>
+      <p>{batteries.length} {batteries.length === 1 ? 'option' : 'options'} found</p>
+    </div>
 
-          <div className="battery-grid">
-            {batteries.map((battery, index) => {
-              const sellingPrice = battery.offerPrice
-              const savings = battery.companyPrice - sellingPrice
-              const discountPercentage = Math.round((savings / battery.companyPrice) * 100)
+    <div className="battery-grid">
+      {batteries.map((battery, index) => {
+        const sellingPrice = battery.offerPrice
+        const savings = battery.companyPrice - sellingPrice
+        const discountPercentage = Math.round((savings / battery.companyPrice) * 100)
+        
+        const batteryImage = battery.brand.toLowerCase().includes('exide') 
+          ? exideBattery 
+          : amaronBattery
+        
+        return (
+          <div key={index} className="battery-card">
+            {/* Warranty Badge */}
+            <div className="warranty-badge">
+              <div className="warranty-number">{battery.warranty.split(' ')[0]}</div>
+              <div className="warranty-label">MONTH WARRANTY</div>
+            </div>
+
+            {/* Discount Badge */}
+            {discountPercentage > 0 && (
+              <div className="discount-badge">{discountPercentage}% OFF</div>
+            )}
+
+            {/* Battery Image */}
+            <div className="battery-image-container">
+              <img 
+                src={batteryImage} 
+                alt={`${battery.brand} Battery`}
+                className="battery-image"
+              />
+            </div>
+
+            {/* Battery Info */}
+            <div className="battery-info">
+              <h3 className="battery-brand">{battery.brand}</h3>
               
-              const batteryImage = battery.brand.toLowerCase().includes('exide') 
-                ? exideBattery 
-                : amaronBattery
+              {/* Model Number - NEW */}
+              <p className="battery-model-number">{battery.model}</p>
               
-              return (
-                <div key={index} className="battery-card">
-                  {/* Warranty Badge */}
-                  <div className="warranty-badge">
-                    <div className="warranty-number">{battery.warranty.split(' ')[0]}</div>
-                    <div className="warranty-label">MONTH WARRANTY</div>
-                  </div>
+              <p className="battery-model">{battery.brandModel}</p>
 
-                  {/* Discount Badge */}
-                  {discountPercentage > 0 && (
-                    <div className="discount-badge">{discountPercentage}% OFF</div>
-                  )}
-
-                  {/* Battery Image */}
-                  <div className="battery-image-container">
-                    <img 
-                      src={batteryImage} 
-                      alt={`${battery.brand} Battery`}
-                      className="battery-image"
-                    />
-                  </div>
-
-                  {/* Battery Info */}
-                  <div className="battery-info">
-                    <h3 className="battery-brand">{battery.brand}</h3>
-                    <p className="battery-model">{battery.brandModel}</p>
-
-                    <div className="battery-specs">
-                      <div className="spec-item">
-                        <span className="spec-label">Warranty:</span>
-                        <span className="spec-value">{battery.warranty}</span>
-                      </div>
-                      <div className="spec-item">
-                        <span className="spec-label">Capacity:</span>
-                        <span className="spec-value">{battery.capacity}</span>
-                      </div>
-                      <div className="spec-item">
-                        <span className="spec-label">Fuel Type:</span>
-                        <span className="spec-value">{selectedFuel}</span>
-                      </div>
-                    </div>
-
-                    <div className="features-tags">
-                      <span className="feature-tag">✓ Free Installation</span>
-                      <span className="feature-tag">✓ Genuine Product</span>
-                    </div>
-
-                    {/* Price Section */}
-                    <div className="price-box">
-                      <div className="price-row">
-                        <span className="mrp-label">MRP:</span>
-                        <span className="mrp-price">₹{battery.companyPrice.toLocaleString()}</span>
-                      </div>
-                      <div className="final-price">₹{sellingPrice.toLocaleString()}</div>
-                      <div className="you-save">You Save ₹{savings.toLocaleString()}</div>
-                    </div>
-
-                    {/* Order Button */}
-                    <a 
-                      href={`https://wa.me/919059391800?text=Hi! I need ${battery.brand} ${battery.model} (${battery.brandModel}) battery for ${selectedBrand} ${selectedModel} (${selectedFuel}). Price: ₹${sellingPrice.toLocaleString()}`}
-                      className="order-btn"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      ORDER NOW
-                    </a>
-                  </div>
+              <div className="battery-specs">
+                <div className="spec-item">
+                  <span className="spec-label">Warranty:</span>
+                  <span className="spec-value">{battery.warranty}</span>
                 </div>
-              )
-            })}
+                <div className="spec-item">
+                  <span className="spec-label">Capacity:</span>
+                  <span className="spec-value">{battery.capacity}</span>
+                </div>
+                <div className="spec-item">
+                  <span className="spec-label">Fuel Type:</span>
+                  <span className="spec-value">{selectedFuel}</span>
+                </div>
+              </div>
+
+              <div className="features-tags">
+                <span className="feature-tag">✓ Free Installation</span>
+                <span className="feature-tag">✓ Genuine Product</span>
+              </div>
+
+              {/* Price Section */}
+              <div className="price-box">
+                <div className="price-row">
+                  <span className="mrp-label">MRP:</span>
+                  <span className="mrp-price">₹{battery.companyPrice.toLocaleString()}</span>
+                </div>
+                <div className="final-price">₹{sellingPrice.toLocaleString()}</div>
+                <div className="you-save">You Save ₹{savings.toLocaleString()}</div>
+              </div>
+
+              {/* Order Button */}
+              <a 
+                href={`https://wa.me/919059391800?text=Hi! I need ${battery.brand} ${battery.model} (${battery.brandModel}) battery for ${selectedBrand} ${selectedModel} (${selectedFuel}). Price: ₹${sellingPrice.toLocaleString()}`}
+                className="order-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ORDER NOW
+              </a>
+            </div>
           </div>
-        </>
-      )}
+        )
+      })}
+    </div>
+  </>
+)}
+
 
       {/* ========== TOP SELLING BATTERIES - ONLY SHOW WHEN NO RESULTS ========== */}
       {!selectedFuel && (

@@ -421,6 +421,14 @@
     letter-spacing: 0.5px;
     margin-bottom: 14px;
 }
+.battery-model-number {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+}
 
 /* Specs */
 .battery-specs {
