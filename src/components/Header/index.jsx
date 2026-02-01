@@ -21,6 +21,7 @@ const Header = () => {
         <nav className="desktop-nav">
           <NavLink to="/" className="nav-link">Home</NavLink>
           <NavLink to="/services" className="nav-link">Services</NavLink>
+           <NavLink to="/batteries" className="nav-link">Batteries</NavLink>
           <NavLink to="/blog/car-repair-hyderabad" className="nav-link">Blog</NavLink>
           <a href="tel:9059391800" className="call-btn">📞 Call</a>
         </nav>
@@ -44,7 +45,9 @@ const Header = () => {
       <div className={`mobile-dropdown ${menuOpen ? "show" : ""}`}>
         <NavLink to="/" className="dropdown-link">Home</NavLink>
         <NavLink to="/services" className="dropdown-link">Services</NavLink>
+         <NavLink to="/batteries" className="dropdown-link">Batteries</NavLink>
         <NavLink to="/blog/car-repair-hyderabad" className="dropdown-link">Blog</NavLink>
+        
         <a href="tel:9059391800" className="dropdown-call">📞 Call Now</a>
       </div>
     </>

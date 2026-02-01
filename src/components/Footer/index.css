@@ -1,40 +1,81 @@
 .footer {
-    background: #0f172a;
-    color: white;
-    padding: 30px;
-    text-align: center;
-}
-.seo-links {
   background: #020617;
-  padding: 80px 20px;
+  color: #e5e7eb;
+  padding: 70px 20px 30px;
+}
+
+.footer-brand {
   text-align: center;
+  margin-bottom: 50px;
 }
 
-.seo-links h2 {
-  color: white;
+.footer-brand h3 {
   font-size: 32px;
-  margin-bottom: 30px;
+  color: #22c55e;
 }
 
-.seo-links-grid {
+.footer-brand span {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
-  max-width: 1000px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
   margin: auto;
 }
 
-.seo-links-grid a {
-  padding: 18px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 14px;
-  text-decoration: none;
-  font-weight: 700;
-  color: #22c55e;
-  transition: 0.3s;
+.footer-col h4 {
+  margin-bottom: 16px;
+  color: white;
 }
 
-.seo-links-grid a:hover {
-  background: rgba(34,197,94,0.15);
-  transform: translateY(-4px);
+.footer-col a,
+.footer-col span {
+  display: block;
+  margin-bottom: 10px;
+  color: #cbd5f5;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-col a:hover {
+  color: #22c55e;
+}
+
+.footer-cta {
+  margin: 50px auto 30px;
+  text-align: center;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 900px;
+}
+
+.footer-cta p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #052e16;
+}
+
+.footer-cta a {
+  display: inline-block;
+  margin-top: 14px;
+  background: white;
+  color: #166534;
+  padding: 12px 30px;
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 30px;
 }

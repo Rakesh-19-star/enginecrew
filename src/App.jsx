@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion"
 
 import Header from "./components/Header"
 import Home from "./pages/Home"
+import Batteries from "./pages/Batteries"
 import Services from "./pages/Services"
 import Blog from "./components/Blog"
 import FloatingCallButton from "./components/FloatingCallButton"
@@ -46,6 +47,20 @@ const App = () => {
                 transition={{ duration: 0.35 }}
               >
                 <Blog />
+              </motion.div>
+            }
+          />
+
+            <Route
+            path="/batteries"
+            element={
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.35 }}
+              >
+                <Batteries />
               </motion.div>
             }
           />

@@ -8,6 +8,8 @@ import AboutEngineCrew from "../../components/AboutEngineCrew"
 import Footer from "../../components/Footer"
 import FAQ from "../../components/FAQ"
 import Testimonials from "../../components/Testimonials"
+import Batteries from "../Batteries"
+import BatteryHighlight from "../../components/BatteryHighlight"
 
 
 const Home = () => {
@@ -15,6 +17,7 @@ const Home = () => {
     <>
       <Hero />
       <ServicesSlider />
+      <BatteryHighlight/>
       <WhyEngineCrew/>
       <Testimonials/>
       <HowItWorks />
@@ -23,6 +26,7 @@ const Home = () => {
       <FAQ/>
       <CTA />
       <Footer/>
+      
        
     </>
   )

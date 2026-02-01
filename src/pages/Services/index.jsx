@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from "react"
-import "./index.css"
+import { useEffect, useRef, useState } from "react";
+import "./index.css";
+import { Link } from "react-router-dom";
 
 /* Local images (Vite / React safe) */
-import generalService from "../../assets/services/generalService.png"
-import carDiagnostic from "../../assets/services/carDiagnostic.png"
-import batteryRepair from "../../assets/services/batteryRepair.png"
-import brakeRepair from "../../assets/services/brakeRepair.png"
-import carBreakdown from "../../assets/services/carBreakdown.png"
-import carBeltsAndHoses from "../../assets/services/carBeltsAndHoses.png"
-import carTimingBelts from "../../assets/services/carTimingBelts.png"
-import minorParts from "../../assets/services/minorParts.png"
-import carEv from "../../assets/services/carEv.png"
+import generalService from "../../assets/services/generalService.png";
+import carDiagnostic from "../../assets/services/carDiagnostic.png";
+import batteryRepair from "../../assets/services/batteryRepair.png";
+import brakeRepair from "../../assets/services/brakeRepair.png";
+import carBreakdown from "../../assets/services/carBreakdown.png";
+import carBeltsAndHoses from "../../assets/services/carBeltsAndHoses.png";
+import carTimingBelts from "../../assets/services/carTimingBelts.png";
+import minorParts from "../../assets/services/minorParts.png";
+import carEv from "../../assets/services/carEv.png";
 
 const servicesData = [
   {
@@ -57,11 +58,7 @@ const servicesData = [
   {
     image: carBreakdown,
     title: "Breakdown Assistance",
-    points: [
-      "Jump start",
-      "Minor roadside repairs",
-      "Emergency support",
-    ],
+    points: ["Jump start", "Minor roadside repairs", "Emergency support"],
     highlight: "Fast response in Hyderabad",
   },
   {
@@ -97,43 +94,37 @@ const servicesData = [
   {
     image: carEv,
     title: "EV Support (Coming Soon)",
-    points: [
-      "EV diagnostics",
-      "Mobile EV assistance",
-      "Charging support",
-    ],
+    points: ["EV diagnostics", "Mobile EV assistance", "Charging support"],
     highlight: "Launching soon in Hyderabad",
     comingSoon: true,
   },
-]
+];
 
 const Services = () => {
-  const [openCards, setOpenCards] = useState([0])
-  const cardRefs = useRef([])
+  const [openCards, setOpenCards] = useState([0]);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("show")
+            entry.target.classList.add("show");
           }
-        })
+        });
       },
       { threshold: 0.15 }
-    )
+    );
 
-    cardRefs.current.forEach(card => card && observer.observe(card))
-    return () => observer.disconnect()
-  }, [])
+    cardRefs.current.forEach((card) => card && observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
 
-  const toggleCard = index => {
-    setOpenCards(prev =>
-      prev.includes(index)
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    )
-  }
+  const toggleCard = (index) => {
+    setOpenCards((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
+  };
 
   return (
     <section className="services-page">
@@ -144,12 +135,12 @@ const Services = () => {
 
       <div className="services-grid">
         {servicesData.map((service, index) => {
-          const isOpen = openCards.includes(index)
+          const isOpen = openCards.includes(index);
 
           return (
             <article
               key={service.title}
-              ref={el => (cardRefs.current[index] = el)}
+              ref={(el) => (cardRefs.current[index] = el)}
               className={`service-card ${isOpen ? "expanded" : ""}`}
             >
               <button
@@ -174,24 +165,33 @@ const Services = () => {
 
               <div className="service-content">
                 <ul className="service-list">
-                  {service.points.map(point => (
+                  {service.points.map((point) => (
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
 
-                <a
-                  href={`https://wa.me/919059391800?text=Hello EngineCrew, I want to book ${service.title}.`}
-                  className="book-service-btn"
-                >
-                  Book this service →
-                </a>
+                {service.title === "Battery Replacement" ? (
+                  <Link to="/batteries"
+                  className="book-service-btn battery-btn">
+                    
+                      View Batteries & Prices →
+                    
+                  </Link>
+                ) : (
+                  <a
+                    href={`https://wa.me/919059391800?text=Hello EngineCrew, I want to book ${service.title}.`}
+                    className="book-service-btn"
+                  >
+                    Book this service →
+                  </a>
+                )}
               </div>
             </article>
-          )
+          );
         })}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Services
+export default Services;

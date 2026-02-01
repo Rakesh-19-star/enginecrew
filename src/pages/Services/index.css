@@ -194,6 +194,13 @@
         transform: translateY(-6px);
     }
 }
+.battery-btn {
+    background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+.battery-btn:hover {
+    box-shadow: 0 14px 30px rgba(220, 38, 38, 0.45);
+}
 
 /* ================= MOBILE ================= */
 

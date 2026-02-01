@@ -1,0 +1,81 @@
+.battery-highlight {
+    background: radial-gradient(circle at top,
+            #0f172a,
+            #020617);
+    padding: 80px 20px;
+    color: #fff;
+}
+
+.battery-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.battery-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #022c22;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 14px;
+}
+
+.battery-content h2 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 900;
+    margin-bottom: 12px;
+}
+
+.battery-content h2 span {
+    color: #fbbf24;
+}
+
+.battery-content p {
+    color: #e5e7eb;
+    max-width: 640px;
+    margin: 0 auto 26px;
+    line-height: 1.6;
+}
+
+.battery-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.battery-primary-btn {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #111;
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 14px 30px rgba(251, 191, 36, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.battery-primary-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(251, 191, 36, 0.55);
+}
+
+.battery-secondary-btn {
+    color: #22c55e;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 14px 22px;
+}
+
+.battery-features {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: #d1d5db;
+}
