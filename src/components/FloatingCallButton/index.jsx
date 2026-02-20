@@ -6,6 +6,12 @@ const FloatingCallButton = () => {
       href="tel:9059391800"
       className="floating-call-btn"
       aria-label="Call EngineCrew"
+       onClick={() => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "call_click"
+    });
+  }}
     >
       <span className="ring"></span>
       <span className="ring delay"></span>
@@ -15,5 +21,7 @@ const FloatingCallButton = () => {
     </a>
   )
 }
+
+
 
 export default FloatingCallButton

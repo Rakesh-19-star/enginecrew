@@ -1,4 +1,4 @@
-import "./index.css"
+import "./index.css";
 
 const Hero = () => {
   return (
@@ -16,12 +16,25 @@ const Hero = () => {
           </h1>
 
           <p className="hero-text">
-            Professional car repairs, maintenance & diagnostics at your home or office.
+            Professional car repairs, maintenance & diagnostics at your home or
+            office.
             <strong> No garage visits. No waiting.</strong>
           </p>
 
           <div className="hero-buttons">
-            <a href="tel:9059391800" className="btn primary">
+            {/* <a href="tel:9059391800" >
+              Call Now
+            </a> */}
+            <a
+              href="tel:9059391800"
+              className="btn primary"
+              onClick={() => {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  event: "call_click",
+                });
+              }}
+            >
               Call Now
             </a>
             <a
@@ -49,7 +62,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

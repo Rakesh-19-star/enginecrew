@@ -45,7 +45,12 @@ const Footer = () => {
         {/* CONTACT */}
         <div className="footer-col">
           <h4>Contact</h4>
-          <a href="tel:9059391800">📞 9059391800</a>
+          onClick={() => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "call_click"
+    });
+  }}
           <a href="https://wa.me/919059391800">💬 WhatsApp</a>
           <span>Hyderabad, Telangana</span>
         </div>

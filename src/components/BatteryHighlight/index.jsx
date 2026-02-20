@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
-import "./index.css"
+import { Link } from "react-router-dom";
+import "./index.css";
 
 const BatteryHighlight = () => {
   return (
@@ -13,20 +13,26 @@ const BatteryHighlight = () => {
         </h2>
 
         <p>
-          Dead battery? Check prices instantly by car brand & model.
-          Get genuine batteries with warranty and on-spot installation.
+          Dead battery? Check prices instantly by car brand & model. Get genuine
+          batteries with warranty and on-spot installation.
         </p>
 
         <div className="battery-actions">
           <Link to="/batteries" className="battery-primary-btn">
-             View Battery Prices
+            View Battery Prices
           </Link>
 
           <a
-            href="https://wa.me/919059391800?text=Hi EngineCrew, I need battery replacement."
+            href="tel:9059391800"
             className="battery-secondary-btn"
+            onClick={() => {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({
+                event: "call_click",
+              });
+            }}
           >
-            Talk to Expert →
+            Call Now
           </a>
         </div>
 
@@ -37,7 +43,7 @@ const BatteryHighlight = () => {
         </ul>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default BatteryHighlight
+export default BatteryHighlight;

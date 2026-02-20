@@ -1,56 +1,132 @@
-import { useState, useEffect } from "react"
-import "./index.css"
-import { batteryCatalog } from "./data"
-import amaronBattery from "/amaronBattery.png"
-import exideBattery from "/exideBattery.jpg"
+import { useState, useEffect } from "react";
+import "./index.css";
+import amaronBattery from "/amaronBattery.png";
+import exideBattery from "/exideBattery.jpg";
+import axios from "axios";
+
+// Batteries/index.jsx — change this one line
+const API_BASE_URL = "https://api.enginecrew.in/api/batteries";
 
 const Batteries = () => {
-  const [selectedBrand, setSelectedBrand] = useState("")
-  const [selectedModel, setSelectedModel] = useState("")
-  const [selectedFuel, setSelectedFuel] = useState("")
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+  const [selectedFuel, setSelectedFuel] = useState("");
 
+  const [brands, setBrands] = useState([]);
+  const [models, setModels] = useState([]);
+  const [fuels, setFuels] = useState([]);
+  const [batteries, setBatteries] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
+  // Fetch brands on mount
   useEffect(() => {
-    setSelectedModel("")
-    setSelectedFuel("")
-  }, [selectedBrand])
+    fetchBrands();
+  }, []);
 
+  // Fetch models when brand changes
   useEffect(() => {
-    setSelectedFuel("")
-  }, [selectedModel])
+    if (selectedBrand) {
+      fetchModels(selectedBrand);
+    } else {
+      setModels([]);
+    }
+    setSelectedModel("");
+    setSelectedFuel("");
+    setFuels([]);
+    setBatteries([]);
+  }, [selectedBrand]);
 
-  const brands = batteryCatalog ? Object.keys(batteryCatalog) : []
+  // Fetch fuels when model changes
+  useEffect(() => {
+    if (selectedBrand && selectedModel) {
+      fetchFuels(selectedBrand, selectedModel);
+    } else {
+      setFuels([]);
+    }
+    setSelectedFuel("");
+    setBatteries([]);
+  }, [selectedModel]);
 
-  const models =
-    selectedBrand && batteryCatalog?.[selectedBrand]
-      ? Object.keys(batteryCatalog[selectedBrand])
-      : []
+  // Fetch batteries when fuel changes
+  useEffect(() => {
+    if (selectedBrand && selectedModel && selectedFuel) {
+      fetchBatteries(selectedBrand, selectedModel, selectedFuel);
+    } else {
+      setBatteries([]);
+    }
+  }, [selectedFuel]);
 
-  const fuels =
-    selectedBrand && selectedModel && batteryCatalog?.[selectedBrand]?.[selectedModel]
-      ? Object.keys(batteryCatalog[selectedBrand][selectedModel])
-      : []
+  const fetchBrands = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API_BASE_URL}/brands`);
+      setBrands(response.data.data);
+    } catch (err) {
+      console.error("Error fetching brands:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const batteries =
-    selectedBrand &&
-    selectedModel &&
-    selectedFuel &&
-    batteryCatalog?.[selectedBrand]?.[selectedModel]?.[selectedFuel]
-      ? batteryCatalog[selectedBrand][selectedModel][selectedFuel]
-      : []
+  const fetchModels = async (brand) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${API_BASE_URL}/models/${encodeURIComponent(brand)}`,
+      );
+      setModels(response.data.data);
+    } catch (err) {
+      console.error("Error fetching models:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchFuels = async (brand, model) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${API_BASE_URL}/fuels/${encodeURIComponent(brand)}/${encodeURIComponent(model)}`,
+      );
+      setFuels(response.data.data);
+    } catch (err) {
+      console.error("Error fetching fuels:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchBatteries = async (brand, model, fuel) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API_BASE_URL}/search`, {
+        params: { brand, model, fuel },
+      });
+      setBatteries(response.data.data);
+    } catch (err) {
+      console.error("Error fetching batteries:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className="batteries-page">
-      
       {/* ========== HERO SECTION ========== */}
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-badge">⚡ #1 Battery Service in Hyderabad</div>
           <h1>Car Battery Replacement at Your Doorstep</h1>
           <p className="hero-subtitle">
-            Get genuine Exide & Amaron batteries delivered and installed at your location. 
-            <strong> Free installation • 24/7 Service • Up to 77-Month Warranty</strong>
+            Get genuine Exide & Amaron batteries delivered and installed at your
+            location.
+            <strong>
+              {" "}
+              Free installation • 24/7 Service • Up to 77-Month Warranty
+            </strong>
           </p>
-          
+
           <div className="hero-features">
             <div className="feature-pill">
               <span className="feature-icon">✓</span>
@@ -93,7 +169,10 @@ const Batteries = () => {
       {/* ========== BATTERY FINDER ========== */}
       <header className="batteries-header">
         <h2>Find Your Perfect Battery</h2>
-        <p>Select your car details to view compatible batteries with instant pricing</p>
+        <p>
+          Select your car details to view compatible batteries with instant
+          pricing
+        </p>
       </header>
 
       <div className="filters">
@@ -101,10 +180,11 @@ const Batteries = () => {
           <label>Car Brand</label>
           <select
             value={selectedBrand}
-            onChange={e => setSelectedBrand(e.target.value)}
+            onChange={(e) => setSelectedBrand(e.target.value)}
+            disabled={loading}
           >
             <option value="">Select Brand</option>
-            {brands.map(brand => (
+            {brands.map((brand) => (
               <option key={brand} value={brand}>
                 {brand}
               </option>
@@ -116,11 +196,11 @@ const Batteries = () => {
           <label>Car Model</label>
           <select
             value={selectedModel}
-            disabled={!selectedBrand}
-            onChange={e => setSelectedModel(e.target.value)}
+            disabled={!selectedBrand || loading}
+            onChange={(e) => setSelectedModel(e.target.value)}
           >
             <option value="">Select Model</option>
-            {models.map(model => (
+            {models.map((model) => (
               <option key={model} value={model}>
                 {model}
               </option>
@@ -132,11 +212,11 @@ const Batteries = () => {
           <label>Fuel Type</label>
           <select
             value={selectedFuel}
-            disabled={!selectedModel}
-            onChange={e => setSelectedFuel(e.target.value)}
+            disabled={!selectedModel || loading}
+            onChange={(e) => setSelectedFuel(e.target.value)}
           >
             <option value="">Select Fuel</option>
-            {fuels.map(fuel => (
+            {fuels.map((fuel) => (
               <option key={fuel} value={fuel}>
                 {fuel}
               </option>
@@ -146,124 +226,150 @@ const Batteries = () => {
       </div>
 
       {/* ========== EMPTY STATE ========== */}
-{!selectedFuel && (
-  <div className="empty-state">
-    <div className="empty-batteries-container">
-      <div className="empty-battery-img">
-        <img src={exideBattery} alt="Exide Battery" />
-      </div>
-      <div className="empty-battery-img">
-        <img src={amaronBattery} alt="Amaron Battery" />
-      </div>
-    </div>
-    <h3>Select Your Car Details</h3>
-    <p>Please select your car brand, model and fuel type to view available batteries</p>
-  </div>
-)}
-
-      {/* ========== BATTERY RESULTS ========== */}
-{selectedFuel && (
-  <>
-    <div className="results-header">
-      <h3>Available Batteries for {selectedBrand} {selectedModel} ({selectedFuel})</h3>
-      <p>{batteries.length} {batteries.length === 1 ? 'option' : 'options'} found</p>
-    </div>
-
-    <div className="battery-grid">
-      {batteries.map((battery, index) => {
-        const sellingPrice = battery.offerPrice
-        const savings = battery.companyPrice - sellingPrice
-        const discountPercentage = Math.round((savings / battery.companyPrice) * 100)
-        
-        const batteryImage = battery.brand.toLowerCase().includes('exide') 
-          ? exideBattery 
-          : amaronBattery
-        
-        return (
-          <div key={index} className="battery-card">
-            {/* Warranty Badge */}
-            <div className="warranty-badge">
-              <div className="warranty-number">{battery.warranty.split(' ')[0]}</div>
-              <div className="warranty-label">MONTH WARRANTY</div>
+      {!selectedFuel && (
+        <div className="empty-state">
+          <div className="empty-batteries-container">
+            <div className="empty-battery-img">
+              <img src={exideBattery} alt="Exide Battery" />
             </div>
-
-            {/* Discount Badge */}
-            {discountPercentage > 0 && (
-              <div className="discount-badge">{discountPercentage}% OFF</div>
-            )}
-
-            {/* Battery Image */}
-            <div className="battery-image-container">
-              <img 
-                src={batteryImage} 
-                alt={`${battery.brand} Battery`}
-                className="battery-image"
-              />
-            </div>
-
-            {/* Battery Info */}
-            <div className="battery-info">
-              <h3 className="battery-brand">{battery.brand}</h3>
-              
-              {/* Model Number - NEW */}
-              <p className="battery-model-number">{battery.model}</p>
-              
-              <p className="battery-model">{battery.brandModel}</p>
-
-              <div className="battery-specs">
-                <div className="spec-item">
-                  <span className="spec-label">Warranty:</span>
-                  <span className="spec-value">{battery.warranty}</span>
-                </div>
-                <div className="spec-item">
-                  <span className="spec-label">Capacity:</span>
-                  <span className="spec-value">{battery.capacity}</span>
-                </div>
-                <div className="spec-item">
-                  <span className="spec-label">Fuel Type:</span>
-                  <span className="spec-value">{selectedFuel}</span>
-                </div>
-              </div>
-
-              <div className="features-tags">
-                <span className="feature-tag">✓ Free Installation</span>
-                <span className="feature-tag">✓ Genuine Product</span>
-              </div>
-
-              {/* Price Section */}
-              <div className="price-box">
-                <div className="price-row">
-                  <span className="mrp-label">MRP:</span>
-                  <span className="mrp-price">₹{battery.companyPrice.toLocaleString()}</span>
-                </div>
-                <div className="final-price">₹{sellingPrice.toLocaleString()}</div>
-                <div className="you-save">You Save ₹{savings.toLocaleString()}</div>
-              </div>
-
-              {/* Order Button */}
-              <a 
-                href={`https://wa.me/919059391800?text=Hi! I need ${battery.brand} ${battery.model} (${battery.brandModel}) battery for ${selectedBrand} ${selectedModel} (${selectedFuel}). Price: ₹${sellingPrice.toLocaleString()}`}
-                className="order-btn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                ORDER NOW
-              </a>
+            <div className="empty-battery-img">
+              <img src={amaronBattery} alt="Amaron Battery" />
             </div>
           </div>
-        )
-      })}
-    </div>
-  </>
-)}
+          <h3>Select Your Car Details</h3>
+          <p>
+            Please select your car brand, model and fuel type to view available
+            batteries
+          </p>
+        </div>
+      )}
 
+      {/* ========== BATTERY RESULTS ========== */}
+      {selectedFuel && (
+        <>
+          <div className="results-header">
+            <h3>
+              Available Batteries for {selectedBrand} {selectedModel} (
+              {selectedFuel})
+            </h3>
+            <p>
+              {batteries.length} {batteries.length === 1 ? "option" : "options"}{" "}
+              found
+            </p>
+          </div>
+
+          <div className="battery-grid">
+            {batteries.map((battery, index) => {
+              const sellingPrice = battery.offerPrice;
+              const savings = battery.companyPrice - sellingPrice;
+              const discountPercentage = Math.round(
+                (savings / battery.companyPrice) * 100,
+              );
+
+              const batteryImage = battery.brand.toLowerCase().includes("exide")
+                ? exideBattery
+                : amaronBattery;
+
+              return (
+                <div key={battery._id || index} className="battery-card">
+                  {/* Warranty Badge */}
+                  <div className="warranty-badge">
+                    <div className="warranty-number">
+                      {battery.warranty.split(" ")[0]}
+                    </div>
+                    <div className="warranty-label">MONTH WARRANTY</div>
+                  </div>
+
+                  {/* Discount Badge */}
+                  {discountPercentage > 0 && (
+                    <div className="discount-badge">
+                      {discountPercentage}% OFF
+                    </div>
+                  )}
+
+                  {/* Battery Image */}
+                  <div className="battery-image-container">
+                    <img
+                      src={batteryImage}
+                      alt={`${battery.brand} Battery`}
+                      className="battery-image"
+                    />
+                  </div>
+
+                  {/* Battery Info */}
+                  <div className="battery-info">
+                    <h3 className="battery-brand">{battery.brand}</h3>
+
+                    {/* Model Number */}
+                    <p className="battery-model-number">{battery.model}</p>
+
+                    <p className="battery-model">{battery.brandModel}</p>
+
+                    <div className="battery-specs">
+                      <div className="spec-item">
+                        <span className="spec-label">Warranty:</span>
+                        <span className="spec-value">{battery.warranty}</span>
+                      </div>
+                      <div className="spec-item">
+                        <span className="spec-label">Capacity:</span>
+                        <span className="spec-value">{battery.capacity}</span>
+                      </div>
+                      <div className="spec-item">
+                        <span className="spec-label">Fuel Type:</span>
+                        <span className="spec-value">{selectedFuel}</span>
+                      </div>
+                    </div>
+
+                    <div className="features-tags">
+                      <span className="feature-tag">✓ Free Installation</span>
+                      <span className="feature-tag">✓ Genuine Product</span>
+                    </div>
+
+                    {/* Price Section */}
+                    <div className="price-box">
+                      <div className="price-row">
+                        <span className="mrp-label">MRP:</span>
+                        <span className="mrp-price">
+                          ₹{battery.companyPrice.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="final-price">
+                        ₹{sellingPrice.toLocaleString()}
+                      </div>
+                      <div className="you-save">
+                        You Save ₹{savings.toLocaleString()}
+                      </div>
+                    </div>
+
+                    {/* Order Button */}
+                    <a
+                      href="tel:9059391800"
+                      className="order-btn"
+                      onClick={() => {
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                          event: "call_click",
+                        });
+                      }}
+                    >
+                      Call Now
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
 
       {/* ========== TOP SELLING BATTERIES - ONLY SHOW WHEN NO RESULTS ========== */}
       {!selectedFuel && (
         <section className="top-selling-section">
           <div className="section-header">
             <h2>🔥 Top Selling Batteries</h2>
-            <p className="section-subtitle">Most popular choices by our customers in Hyderabad</p>
+            <p className="section-subtitle">
+              Most popular choices by our customers in Hyderabad
+            </p>
           </div>
 
           <div className="top-selling-grid">
@@ -290,7 +396,9 @@ const Batteries = () => {
                   <span>✓ 60 Months Warranty</span>
                   <span>✓ Free Installation</span>
                 </div>
-                <a href="tel:9059391800" className="top-order-btn">📞 QUICK ORDER</a>
+                <a href="tel:9059391800" className="top-order-btn">
+                  📞 QUICK ORDER
+                </a>
               </div>
             </div>
 
@@ -317,7 +425,9 @@ const Batteries = () => {
                   <span>✓ 60 Months Warranty</span>
                   <span>✓ Free Installation</span>
                 </div>
-                <a href="tel:9059391800" className="top-order-btn">📞 QUICK ORDER</a>
+                <a href="tel:9059391800" className="top-order-btn">
+                  📞 QUICK ORDER
+                </a>
               </div>
             </div>
 
@@ -344,7 +454,9 @@ const Batteries = () => {
                   <span>✓ 60 Months Warranty</span>
                   <span>✓ Free Installation</span>
                 </div>
-                <a href="tel:9059391800" className="top-order-btn">📞 QUICK ORDER</a>
+                <a href="tel:9059391800" className="top-order-btn">
+                  📞 QUICK ORDER
+                </a>
               </div>
             </div>
 
@@ -371,7 +483,9 @@ const Batteries = () => {
                   <span>✓ 60 Months Warranty</span>
                   <span>✓ Free Installation</span>
                 </div>
-                <a href="tel:9059391800" className="top-order-btn">📞 QUICK ORDER</a>
+                <a href="tel:9059391800" className="top-order-btn">
+                  📞 QUICK ORDER
+                </a>
               </div>
             </div>
 
@@ -398,7 +512,9 @@ const Batteries = () => {
                   <span>✓ 60 Months Warranty</span>
                   <span>✓ Free Installation</span>
                 </div>
-                <a href="tel:9059391800" className="top-order-btn">📞 QUICK ORDER</a>
+                <a href="tel:9059391800" className="top-order-btn">
+                  📞 QUICK ORDER
+                </a>
               </div>
             </div>
 
@@ -425,7 +541,9 @@ const Batteries = () => {
                   <span>✓ 60 Months Warranty</span>
                   <span>✓ Free Installation</span>
                 </div>
-                <a href="tel:9059391800" className="top-order-btn">📞 QUICK ORDER</a>
+                <a href="tel:9059391800" className="top-order-btn">
+                  📞 QUICK ORDER
+                </a>
               </div>
             </div>
           </div>
@@ -440,17 +558,23 @@ const Batteries = () => {
       <section className="contact-section">
         <div className="contact-card">
           <h3>📍 Service Areas</h3>
-          <p>We serve all areas in Hyderabad including Uppal, Secundrabad, Malkajgiri, Ameerpet, Madhapur, Gachibowli, Hitech City, Banjara Hills, Kukatpally, and more</p>
+          <p>
+            We serve all areas in Hyderabad including Uppal, Secundrabad,
+            Malkajgiri, Ameerpet, Madhapur, Gachibowli, Hitech City, Banjara
+            Hills, Kukatpally, and more
+          </p>
         </div>
-        
+
         <div className="contact-card">
           <h3>📞 24/7 Support</h3>
           <p>Emergency battery service available round the clock</p>
-          <a href="tel:9059391800" className="contact-number">Call: 9059391800</a>
+          <a href="tel:9059391800" className="contact-number">
+            Call: 9059391800
+          </a>
         </div>
       </section>
     </section>
-  )
-}
+  );
+};
 
-export default Batteries
+export default Batteries;

@@ -48,7 +48,19 @@ const Header = () => {
          <NavLink to="/batteries" className="dropdown-link">Batteries</NavLink>
         <NavLink to="/blog/car-repair-hyderabad" className="dropdown-link">Blog</NavLink>
         
-        <a href="tel:9059391800" className="dropdown-call">📞 Call Now</a>
+        {/* <a href="tel:9059391800"> */}
+        <a
+  href="tel:9059391800"
+   className="dropdown-call"
+  onClick={() => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "call_click"
+    });
+  }}
+>
+ 📞 Call Now
+</a>
       </div>
     </>
   )
