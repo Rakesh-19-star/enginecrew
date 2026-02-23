@@ -1,16 +1,89 @@
-# React + Vite
+EngineCrew – On-Demand Automobile Service Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🔗 Live: https://www.enginecrew.in/
 
-Currently, two official plugins are available:
+EngineCrew is a production-deployed web platform that allows vehicle owners to request emergency doorstep car services such as battery replacement and inspections.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Unlike typical booking platforms, this system is optimized for urgent roadside scenarios, enabling customers to instantly connect via call or WhatsApp.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🚗 Problem
 
-## Expanding the ESLint configuration
+Vehicle breakdowns require immediate assistance.
+Most service platforms require complex booking flows which are not practical during emergencies.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+EngineCrew solves this by providing:
+
+- Instant service request access
+- Mobile-first interface
+- Direct technician communication workflow
+
+---
+
+🛠 Tech Stack
+
+Frontend:
+
+- React.js
+- HTML5 / CSS3 / JavaScript
+
+Backend:
+
+- Node.js
+- Express.js
+- REST APIs
+
+Database:
+
+- MongoDB (for service request handling)
+
+Deployment:
+
+- Vercel (Frontend)
+- Render (Backend)
+- Custom Domain + SSL
+
+---
+
+⚙️ Key Features
+
+✔ Emergency-focused UI (minimal steps for users)
+✔ WhatsApp & Call-based lead workflow
+✔ REST API-driven service handling
+✔ Fully deployed production environment
+✔ Mobile-first responsive design
+✔ Real customer usage scenario
+
+---
+
+🧠 My Role
+
+I independently designed, developed, deployed, and maintain the complete system including:
+
+- Architecture design
+- API development
+- Deployment & hosting configuration
+- Debugging real-world production issues
+- Running Google Ads and optimizing landing UX
+
+---
+
+📸 Screenshots
+
+(Add screenshots here)
+
+---
+
+🚀 Future Improvements
+
+- Admin dashboard for managing service leads
+- Automated booking storage
+- Technician assignment workflow
+- Payment gateway integration
+
+---
+
+📌 Status
+
+Actively maintained and used for real service operations.
