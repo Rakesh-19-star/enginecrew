@@ -12,6 +12,7 @@ import carBeltsAndHoses from "../../assets/services/carBeltsAndHoses.png";
 import carTimingBelts from "../../assets/services/carTimingBelts.png";
 import minorParts from "../../assets/services/minorParts.png";
 import carEv from "../../assets/services/carEv.png";
+import Footer from "../../components/Footer";
 
 const servicesData = [
   {
@@ -113,7 +114,7 @@ const Services = () => {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
 
     cardRefs.current.forEach((card) => card && observer.observe(card));
@@ -122,75 +123,78 @@ const Services = () => {
 
   const toggleCard = (index) => {
     setOpenCards((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
     );
   };
 
   return (
-    <section className="services-page">
-      <header className="services-header">
-        <h1>Our Services</h1>
-        <p>Premium doorstep car service anywhere in Hyderabad</p>
-      </header>
+    <>
+      <section className="services-page">
+        <header className="services-header">
+          <h1>Our Services</h1>
+          <p>Premium doorstep car service anywhere in Hyderabad</p>
+        </header>
 
-      <div className="services-grid">
-        {servicesData.map((service, index) => {
-          const isOpen = openCards.includes(index);
+        <div className="services-grid">
+          {servicesData.map((service, index) => {
+            const isOpen = openCards.includes(index);
 
-          return (
-            <article
-              key={service.title}
-              ref={(el) => (cardRefs.current[index] = el)}
-              className={`service-card ${isOpen ? "expanded" : ""}`}
-            >
-              <button
-                className="service-header"
-                onClick={() => toggleCard(index)}
+            return (
+              <article
+                key={service.title}
+                ref={(el) => (cardRefs.current[index] = el)}
+                className={`service-card ${isOpen ? "expanded" : ""}`}
               >
-                <div className="service-icon">
-                  <div className="icon-glass">
-                    <img src={service.image} alt={service.title} />
+                <button
+                  className="service-header"
+                  onClick={() => toggleCard(index)}
+                >
+                  <div className="service-icon">
+                    <div className="icon-glass">
+                      <img src={service.image} alt={service.title} />
+                    </div>
                   </div>
-                </div>
 
-                <div className="service-heading">
-                  <h3>{service.title}</h3>
-                  <span className="service-highlight">
-                    ✔ {service.highlight}
-                  </span>
-                </div>
+                  <div className="service-heading">
+                    <h3>{service.title}</h3>
+                    <span className="service-highlight">
+                      ✔ {service.highlight}
+                    </span>
+                  </div>
 
-                <span className="toggle-icon">{isOpen ? "−" : "+"}</span>
-              </button>
+                  <span className="toggle-icon">{isOpen ? "−" : "+"}</span>
+                </button>
 
-              <div className="service-content">
-                <ul className="service-list">
-                  {service.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
+                <div className="service-content">
+                  <ul className="service-list">
+                    {service.points.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
 
-                {service.title === "Battery Replacement" ? (
-                  <Link to="/batteries"
-                  className="book-service-btn battery-btn">
-                    
+                  {service.title === "Battery Replacement" ? (
+                    <Link
+                      to="/batteries"
+                      className="book-service-btn battery-btn"
+                    >
                       View Batteries & Prices →
-                    
-                  </Link>
-                ) : (
-                  <a
-                    href={`https://wa.me/919059391800?text=Hello EngineCrew, I want to book ${service.title}.`}
-                    className="book-service-btn"
-                  >
-                    Book this service →
-                  </a>
-                )}
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </section>
+                    </Link>
+                  ) : (
+                    <a
+                      href={`https://wa.me/919059391800?text=Hello EngineCrew, I want to book ${service.title}.`}
+                      className="book-service-btn"
+                    >
+                      Book this service →
+                    </a>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 };
 

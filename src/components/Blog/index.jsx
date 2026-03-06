@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom"
-import "./index.css"
-
+import { useParams } from "react-router-dom";
+import "./index.css";
+import Footer from "../Footer";
 
 const pages = {
   "car-repair-hyderabad": {
@@ -34,7 +34,7 @@ Unlike local garages, EngineCrew provides:
 ✔ Warranty on parts  
 
 Thousands of Hyderabad car owners trust EngineCrew because we are fast, honest, and professional.
-`
+`,
   },
 
   "car-mechanic-hyderabad": {
@@ -59,7 +59,7 @@ No more:
 ❌ Towing hassles  
 
 EngineCrew is Hyderabad’s fastest growing mobile mechanic network.
-`
+`,
   },
 
   "car-repair-malkajgiri": {
@@ -80,7 +80,7 @@ We fix:
 Our mobile technicians reach you within minutes. No garage visits. No towing.
 
 Malkajgiri car owners rely on EngineCrew for honest pricing and fast service.
-`
+`,
   },
 
   "mobile-car-service-hyderabad": {
@@ -99,7 +99,7 @@ We save you:
 Our mechanics come with professional tools and genuine spare parts.
 
 This is the future of car servicing in Hyderabad.
-`
+`,
   },
 
   "jump-start-service-hyderabad": {
@@ -113,20 +113,25 @@ Car not starting? EngineCrew provides instant jump start service across Hyderaba
 We reach you within minutes and safely restart your vehicle. If required, we also replace your battery on the spot.
 
 Available across Malkajgiri, Secunderabad, Uppal, Tarnaka, ECIL and all Hyderabad.
-`
-  }
-}
+`,
+  },
+};
 
 const Blog = () => {
-  const { slug } = useParams()
-  const page = pages[slug] || pages["car-repair-hyderabad"]
+  const { slug } = useParams();
+  const page = pages[slug] || pages["car-repair-hyderabad"];
 
   return (
     <div className="blog">
-      <div className="blog-hero" style={{ backgroundImage: `url(${page.hero})` }}>
+      <div
+        className="blog-hero"
+        style={{ backgroundImage: `url(${page.hero})` }}
+      >
         <h1>{page.title}</h1>
         <p>{page.subtitle}</p>
-        <a href="tel:9059391800" className="blog-cta">📞 Call EngineCrew</a>
+        <a href="tel:9059391800" className="blog-cta">
+          📞 Call EngineCrew
+        </a>
       </div>
 
       <div className="blog-content">
@@ -134,8 +139,9 @@ const Blog = () => {
           <p key={i}>{p}</p>
         ))}
       </div>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Blog
+export default Blog;
